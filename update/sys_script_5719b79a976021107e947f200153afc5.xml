@@ -40,10 +40,11 @@
 		current.setAbortAction(true);
 	}
 
-	var today = rightnow.getLocalDate();
-	var istoday = whenNeeded.getLocalDate();
+	var niutils = new NeedItUtils();
 	
-	if(today.compareTo(istoday) == 0){
+	var isDateToday = niutils.isDateToday(whenNeeded);
+	
+	if(isDateToday === true){
 		gs.addErrorMessage("When needed date cannot be today.  Your request has not been saved to the database.");
 		current.setAbortAction(true);
 	}

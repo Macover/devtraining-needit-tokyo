@@ -27,14 +27,13 @@
         <rest_service_text/>
         <rest_variables/>
         <role_conditions/>
-        <script><![CDATA[(function executeRule(current, previous /*null when async*/) {
+        <script><![CDATA[(function executeRule(current, previous /*null when async*/ ) {
 
-	var rightnow = new GlideDateTime();
+	var niutils = new NeedItUtils();
+	var isPast = niutils.isDatePast(current.u_when_needed);
 
-	var whenNeeded = new GlideDateTime(current.u_when_needed);
-
-	if(whenNeeded.before(rightnow)){
-		gs.addErrorMessage("When needed date cannot be in the past.  Your request has not been saved to the database.")
+	if (isPast === true) {
+		gs.addErrorMessage("When needed date cannot be in the past.  Your request has not been saved to the database.");
 		current.setAbortAction(true);
 	}
 
